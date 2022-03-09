@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xaix-spiconnect
+  labels:
+    app: xaix-spiconnect
+spec:
+  selector:
+    matchLabels:
+      app: xaix-spiconnect
+  strategy:
+     type: Recreate
+  template:
+    metadata:
+      labels:
+        app: xaix-spiconnect
+    spec:
+      containers:
+      - image: nexus.t.st/xaix/xaix-spiconnect:1.0.0-SNAPSHOT
+        name: xaix-spiconnect
+        ports: 
+        - containerPort: 8080
+          name: xaix-spiconnect
+        volumeMounts:
+        - name: certificate-secret
+          mountPath: /app/config/certificates
+        envFrom:
+        - secretRef:
+             name: xaix-spiconnect-secret
+      volumes:
+        - name: certificate-secret
+          secret:
+            secretName: xaix-spiconnect-certificate-secret

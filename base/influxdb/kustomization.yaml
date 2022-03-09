@@ -1,0 +1,10 @@
+generatorOptions:
+  disableNameSuffixHash: true
+secretgenerator:
+- name: influxdb-secret
+  envs:
+  - .env
+resources:
+- deployment.yaml
+- persistentVolumeClaim.yaml
+- service.yaml

@@ -1,0 +1,13 @@
+generatorOptions:
+  disableNameSuffixHash: true
+secretgenerator:
+- name: localdb-secret
+  envs:
+  - .env
+resources:
+- deployment.yaml
+- persistentVolumeClaim.yaml
+- rolebinding.yaml
+- service.yaml
+- serviceaccount.yaml
+

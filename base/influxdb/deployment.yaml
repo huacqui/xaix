@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  strategy:
+     type: Recreate
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - image: nexus.t.st/library/influxdb:2.1.1
+        name: influxdb
+        ports: 
+        - containerPort: 8086
+          name: influxdb
+        volumeMounts:
+        - mountPath: /var/lib/influxdb2
+          name: influxdb-vol
+        envFrom:
+        - secretRef:
+            name: influxdb-secret
+      volumes:
+      - name: influxdb-vol
+        persistenVolumeClaim:
+          clainName: influxdb-pvc

@@ -1,0 +1,11 @@
+generatorOptions:
+  disableNameSuffixHash: true
+secretgenerator:
+- name:  xaix-spiconnect-secret
+  envs:
+  - .env
+- name:  xaix-spiconnect-certificate-secret
+  files:
+  - certificate.crt
+resources:
+- deployment.yaml

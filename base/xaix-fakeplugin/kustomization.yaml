@@ -1,0 +1,9 @@
+generatorOptions:
+  disableNameSuffixHash: true
+secretgenerator:
+- name: xaix-fakeplugin-secret
+  envs:
+  - .env
+resources:
+- deployment.yaml
+- service.yaml

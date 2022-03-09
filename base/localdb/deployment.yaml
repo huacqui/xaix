@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: localdb
+    labels:
+      app: localdb
+spec:
+  selector:
+    matchLabels:
+      app: localdb
+  strategy:
+     type: Recreate
+  template:
+    metadata:
+      labels:
+        app: localdb
+    spec:
+      serviceAccount: localdb-sa
+      containers:
+      - image: nexus.t.st/xaix/localdb:1.0.0-SNAPSHOT
+        name: localdb
+        ports: 
+        - containerPort: 5432
+          name: localdb
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: localdb-vol
+        envFrom:
+        - secretRef:
+            name: localdb-secret
+      volumes:
+      - name: localdb-vol
+        persitentVolumeClaim:
+           claimName: localdb-pvc

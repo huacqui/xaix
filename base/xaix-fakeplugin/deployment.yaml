@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xaix-fakeplugin
+  labels:
+    app: xaix-fakeplugin
+spec:
+  selector:
+    matchLabels:
+      app: xaix-fakeplugin
+  strategy:
+     type: Recreate
+  template:
+    metadata:
+      labels:
+        app: xaix-fakeplugin
+    spec:
+      containers:
+      - image: nexus.t.st/xaix/xaix-fakeplugin:1.0.0-SNAPSHOT
+        name: xaix-fakeplugin
+        ports: 
+        - containerPort: 8083
+          name: xaix-fakeplugin
+        envFrom:
+        - secretRef:
+             name: xaix-fakeplugin-secret

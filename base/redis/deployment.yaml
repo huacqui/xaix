@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  strategy:
+     type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: nexus.t.st/library/redis:latest
+        name: redis
+        ports: 
+        - containerPort: 6379
+          name: redis

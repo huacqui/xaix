@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xaix-api
+  labels:
+    app: xaix-api
+spec:
+  selector:
+    matchLabels:
+      app: xaix-api
+  strategy:
+     type: Recreate
+  template:
+    metadata:
+      labels:
+        app: xaix-api
+    spec:
+      containers:
+      - image: nexus.t.st/xaix/xaix-api:1.0.0-SNAPSHOT
+        name: xaix-api
+        ports: 
+        - containerPort: 8080
+          name: xaix-api
+        envFrom:
+        - secretRef:
+             name: xaix-api-secret
